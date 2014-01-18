@@ -1,0 +1,429 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Idb by adaz</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Idb</h1>
+        <p>IDB.js - Small wrapper for indexedDB API</p>
+
+        <p class="view"><a href="https://github.com/adaz/IDB">View the Project on GitHub <small>adaz/IDB</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/adaz/IDB/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/adaz/IDB/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/adaz/IDB">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="idbjs---indexeddb-wrapper" class="anchor" href="#idbjs---indexeddb-wrapper"><span class="octicon octicon-link"></span></a>IDB.js - indexedDB Wrapper</h1>
+
+<p>IDB.js is a simple wrapper for indexedDB API available in HTML5. The idea of this script is to help you organise your indexedDB connections and transactions, and to avoid code repetition.</p>
+
+<h2>
+<a name="example" class="anchor" href="#example"><span class="octicon octicon-link"></span></a>Example</h2>
+
+<p>IndexedDB is asynchronous so most of the methods provide callbacks. To create/open your Database you need to call <code>new IDB</code> and provide 3 arguments: <code>setup</code> object, <code>successHandler</code> and <code>errorHandler</code> (optional). Here's an example:</p>
+
+<pre><code>var db;
+
+new window.IDB({
+    db: "Todo",
+    version: 1,
+    stores: [
+        {
+            name: "tasks",
+            keyPath: "postDate",
+            schema: {
+                postDate: { unique: true },
+                title: { unique: false },
+                content: { unique: false },
+                tags: { unique: false },
+                due: { unique: false },
+                users: { unique: false }
+            }
+        },
+        {
+            name: "tags",
+            keyPath: "id",
+            schema: {
+                id: { unique: true },
+                text: { unique: true },
+                colour: { unique: false },
+                priority: { unique: false }
+            }
+        }
+    ]
+}, function() {
+    db = this;
+
+    // Do more stuff...
+});
+</code></pre>
+
+<h2>
+<a name="api-reference" class="anchor" href="#api-reference"><span class="octicon octicon-link"></span></a>API Reference</h2>
+
+<ul>
+<li><a href="#getstoreinfo">.getStoreInfo()</a></li>
+<li><a href="#insert">.insert()</a></li>
+<li><a href="#openstore">.openStore()</a></li>
+<li><a href="#query">.query()</a></li>
+<li><a href="#querymultiplekeys">.queryMultipleKeys()</a></li>
+<li><a href="#remove">.remove()</a></li>
+<li><a href="#update">.update()</a></li>
+</ul><h3>
+<a name="getstoreinfo" class="anchor" href="#getstoreinfo"><span class="octicon octicon-link"></span></a>.getStoreInfo()</h3>
+
+<p><a href="#api-reference">Back to top</a></p>
+
+<p><strong>Description:</strong> Get information on a specific store.</p>
+
+<pre><code>.getStoreInfo(storeName, successHandler, errorHandler)
+</code></pre>
+
+<p><strong>Parameter:</strong> <code>storeName</code></p>
+
+<p><strong>Type:</strong> <code>String</code></p>
+
+<p><strong>Description:</strong> Name of a Store in the Database.</p>
+
+<h1></h1>
+
+<p><strong>Parameter:</strong> <code>successHandler</code></p>
+
+<p><strong>Type:</strong> <code>function(event, data) {}</code></p>
+
+<p><strong>Description:</strong> A function to call when the request finishes. The function get passed 2 parameters: the <code>Event</code> and the
+ <code>Data</code>.</p>
+
+<h1></h1>
+
+<p><strong>Parameter:</strong> <code>errorHandler</code></p>
+
+<p><strong>Type:</strong> <code>function(event) {}</code></p>
+
+<p><strong>Description:</strong> A function to call when the request fails. The function get passed 1 parameter: the <code>Event</code>.</p>
+
+<h1></h1>
+
+<h3>
+<a name="insert" class="anchor" href="#insert"><span class="octicon octicon-link"></span></a>.insert()</h3>
+
+<p><a href="#api-reference">Back to top</a></p>
+
+<p><strong>Description:</strong> Insert data into a specific store.</p>
+
+<pre><code>.insert(value, overwrite, storeName, successHandler, errorHandler)
+</code></pre>
+
+<p><strong>Parameter:</strong> <code>value</code></p>
+
+<p><strong>Type:</strong> <code>Object</code></p>
+
+<p><strong>Description:</strong> A data object that will get inserted into the database.</p>
+
+<h1></h1>
+
+<p><strong>Parameter:</strong> <code>overwrite</code></p>
+
+<p><strong>Type:</strong> <code>Boolean</code></p>
+
+<p><strong>Description:</strong> If true, <code>value</code> will overwrite existing entry if already exists (only if the Store keyPath is not set
+to <code>autoIncrement</code> <a href="https://developer.mozilla.org/en/docs/IndexedDB/Using_IndexedDB#Structuring_the_database">read more</a>).</p>
+
+<h1></h1>
+
+<p><strong>Parameter:</strong> <code>storeName</code></p>
+
+<p><strong>Type:</strong> <code>String</code></p>
+
+<p><strong>Description:</strong> Name of a Store in the Database.</p>
+
+<h1></h1>
+
+<p><strong>Parameter:</strong> <code>successHandler</code></p>
+
+<p><strong>Type:</strong> <code>function(event, data) {}</code></p>
+
+<p><strong>Description:</strong> A function to call when the request finishes. The function get passed 2 parameters: the <code>Event</code> and the
+ <code>Data</code>.</p>
+
+<h1></h1>
+
+<p><strong>Parameter:</strong> <code>errorHandler</code></p>
+
+<p><strong>Type:</strong> <code>function(event) {}</code></p>
+
+<p><strong>Description:</strong> A function to call when the request fails. The function get passed 1 parameter: the <code>Event</code>.</p>
+
+<h1></h1>
+
+<h3>
+<a name="openstore" class="anchor" href="#openstore"><span class="octicon octicon-link"></span></a>.openStore()</h3>
+
+<p><a href="#api-reference">Back to top</a></p>
+
+<p><strong>Description:</strong> Open store and return <code>IDBObjectStore</code>.</p>
+
+<pre><code>.openStore(storeName, mode)
+</code></pre>
+
+<p><strong>Parameter:</strong> <code>storeName</code></p>
+
+<p><strong>Type:</strong> <code>String</code></p>
+
+<p><strong>Description:</strong> Name of a Store in the Database.</p>
+
+<h1></h1>
+
+<p><strong>Parameter:</strong> <code>mode</code></p>
+
+<p><strong>Type:</strong> <code>String</code></p>
+
+<p><strong>Description:</strong> Transaction mode: <code>readwrite</code> (default) and <code>readonly</code> <a href="https://developer.mozilla.org/en-US/docs/Web/API/IDBDatabase.transaction#Parameters">read more</a>.</p>
+
+<h1></h1>
+
+<h3>
+<a name="query" class="anchor" href="#query"><span class="octicon octicon-link"></span></a>.query()</h3>
+
+<p><a href="#api-reference">Back to top</a></p>
+
+<p><strong>Description:</strong> Query data from a specific store.</p>
+
+<pre><code>.query(keyRange, index, storeName, pageIndex, itemsPerPage, direction, successHandler, errorHandler)
+</code></pre>
+
+<p><strong>Parameter:</strong> <code>keyRange</code></p>
+
+<p><strong>Type:</strong> <code>IDBKeyRange</code> <a href="https://developer.mozilla.org/en-US/docs/Web/API/IDBKeyRange">Read more</a></p>
+
+<p><strong>Description:</strong> A range of keys in a specific store <a href="https://developer.mozilla.org/en-US/docs/Web/API/IDBKeyRange">read more</a>.
+ Set to <code>null</code> to query all keys.</p>
+
+<h1></h1>
+
+<p><strong>Parameter:</strong> <code>index</code></p>
+
+<p><strong>Type:</strong> <code>String</code></p>
+
+<p><strong>Description:</strong> Query key range based on a specific index.</p>
+
+<h1></h1>
+
+<p><strong>Parameter:</strong> <code>storeName</code></p>
+
+<p><strong>Type:</strong> <code>String</code></p>
+
+<p><strong>Description:</strong> Name of a Store in the Database.</p>
+
+<h1></h1>
+
+<p><strong>Parameter:</strong> <code>pageIndex</code></p>
+
+<p><strong>Type:</strong> <code>Number</code></p>
+
+<p><strong>Description:</strong> Page index, works with <code>itemsPerPage</code> to help you setup a paging system.</p>
+
+<h1></h1>
+
+<p><strong>Parameter:</strong> <code>itemsPerPage</code></p>
+
+<p><strong>Type:</strong> <code>Number</code></p>
+
+<p><strong>Description:</strong> Limit query to a specific number of items. If <code>itemsPerPage</code> is not set, query will return all records.</p>
+
+<h1></h1>
+
+<p><strong>Parameter:</strong> <code>direction</code></p>
+
+<p><strong>Type:</strong> <code>String</code></p>
+
+<p><strong>Description:</strong> Cursor direction: <code>next</code> (default), <code>nextunique</code>, <code>prev</code> and <code>prevunique</code>
+ <a href="https://developer.mozilla.org/en-US/docs/Web/API/IDBCursor.direction">read more</a>.</p>
+
+<h1></h1>
+
+<p><strong>Parameter:</strong> <code>successHandler</code></p>
+
+<p><strong>Type:</strong> <code>function(event, data) {}</code></p>
+
+<p><strong>Description:</strong> A function to call when the request finishes. The function get passed 2 parameters: the <code>Event</code> and the
+ <code>Data</code>.</p>
+
+<h1></h1>
+
+<p><strong>Parameter:</strong> <code>errorHandler</code></p>
+
+<p><strong>Type:</strong> <code>function(event) {}</code></p>
+
+<p><strong>Description:</strong> A function to call when the request fails. The function get passed 1 parameter: the <code>Event</code>.</p>
+
+<h1></h1>
+
+<h3>
+<a name="querymultiplekeys" class="anchor" href="#querymultiplekeys"><span class="octicon octicon-link"></span></a>.queryMultipleKeys()</h3>
+
+<p><a href="#api-reference">Back to top</a></p>
+
+<p><strong>Description:</strong> Query data from a specific store using an array of keys.</p>
+
+<pre><code>.queryMultipleKeys(keys, index, storeName, successHandler, errorHandler)
+</code></pre>
+
+<p><strong>Parameter:</strong> <code>keys</code></p>
+
+<p><strong>Type:</strong> <code>Array</code></p>
+
+<p><strong>Description:</strong> An array of keys to query from a store.</p>
+
+<h1></h1>
+
+<p><strong>Parameter:</strong> <code>index</code></p>
+
+<p><strong>Type:</strong> <code>String</code></p>
+
+<p><strong>Description:</strong> Query key range based on a specific index.</p>
+
+<h1></h1>
+
+<p><strong>Parameter:</strong> <code>storeName</code></p>
+
+<p><strong>Type:</strong> <code>String</code></p>
+
+<p><strong>Description:</strong> Name of a Store in the Database.</p>
+
+<h1></h1>
+
+<p><strong>Parameter:</strong> <code>successHandler</code></p>
+
+<p><strong>Type:</strong> <code>function(event, data) {}</code></p>
+
+<p><strong>Description:</strong> A function to call when the request finishes. The function get passed 2 parameters: the <code>Event</code> and the
+ <code>Data</code>.</p>
+
+<h1></h1>
+
+<p><strong>Parameter:</strong> <code>errorHandler</code></p>
+
+<p><strong>Type:</strong> <code>function(event) {}</code></p>
+
+<p><strong>Description:</strong> A function to call when the request fails. The function get passed 1 parameter: the <code>Event</code>.</p>
+
+<h1></h1>
+
+<h3>
+<a name="remove" class="anchor" href="#remove"><span class="octicon octicon-link"></span></a>.remove()</h3>
+
+<p><a href="#api-reference">Back to top</a></p>
+
+<p><strong>Description:</strong> Insert data into a specific store.</p>
+
+<pre><code>.remove(key, storeName, successHandler, errorHandler)
+</code></pre>
+
+<p><strong>Parameter:</strong> <code>key</code></p>
+
+<p><strong>Type:</strong> <code>String|Number</code></p>
+
+<p><strong>Description:</strong> Key of an item in the store.</p>
+
+<h1></h1>
+
+<p><strong>Parameter:</strong> <code>storeName</code></p>
+
+<p><strong>Type:</strong> <code>String</code></p>
+
+<p><strong>Description:</strong> Name of a Store in the Database.</p>
+
+<h1></h1>
+
+<p><strong>Parameter:</strong> <code>successHandler</code></p>
+
+<p><strong>Type:</strong> <code>function(event, data) {}</code></p>
+
+<p><strong>Description:</strong> A function to call when the request finishes. The function get passed 2 parameters: the <code>Event</code> and the
+ <code>Data</code>.</p>
+
+<h1></h1>
+
+<p><strong>Parameter:</strong> <code>errorHandler</code></p>
+
+<p><strong>Type:</strong> <code>function(event) {}</code></p>
+
+<p><strong>Description:</strong> A function to call when the request fails. The function get passed 1 parameter: the <code>Event</code>.</p>
+
+<h1></h1>
+
+<h3>
+<a name="update" class="anchor" href="#update"><span class="octicon octicon-link"></span></a>.update()</h3>
+
+<p><a href="#api-reference">Back to top</a></p>
+
+<p><strong>Description:</strong> Insert data into a specific store.</p>
+
+<pre><code>.update(value, key, storeName, successHandler, errorHandler)
+</code></pre>
+
+<p><strong>Parameter:</strong> <code>value</code></p>
+
+<p><strong>Type:</strong> <code>Object</code></p>
+
+<p><strong>Description:</strong> A data object that will get inserted into the database.</p>
+
+<h1></h1>
+
+<p><strong>Parameter:</strong> <code>key</code></p>
+
+<p><strong>Type:</strong> <code>String|Number</code></p>
+
+<p><strong>Description:</strong> Key of an item in the store.</p>
+
+<h1></h1>
+
+<p><strong>Parameter:</strong> <code>storeName</code></p>
+
+<p><strong>Type:</strong> <code>String</code></p>
+
+<p><strong>Description:</strong> Name of a Store in the Database.</p>
+
+<h1></h1>
+
+<p><strong>Parameter:</strong> <code>successHandler</code></p>
+
+<p><strong>Type:</strong> <code>function(event, data) {}</code></p>
+
+<p><strong>Description:</strong> A function to call when the request finishes. The function get passed 2 parameters: the <code>Event</code> and the
+ <code>Data</code>.</p>
+
+<h1></h1>
+
+<p><strong>Parameter:</strong> <code>errorHandler</code></p>
+
+<p><strong>Type:</strong> <code>function(event) {}</code></p>
+
+<p><strong>Description:</strong> A function to call when the request fails. The function get passed 1 parameter: the <code>Event</code>.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/adaz">adaz</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
