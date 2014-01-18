@@ -2,6 +2,8 @@
 
 IDB.js is a simple wrapper for indexedDB API available in HTML5. The idea of this script is to help you organise your indexedDB connections and transactions, and to avoid code repetition.
 
+[Simple TODO Demo](http://adaz.github.io/IDB/demos/simple/)
+
 ## Example
 
 IndexedDB is asynchronous so most of the methods provide callbacks. To create/open your Database you need to call `new IDB` and provide 3 arguments: `setup` object, `successHandler` and `errorHandler` (optional). Here's an example:
