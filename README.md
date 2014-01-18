@@ -82,7 +82,7 @@ IndexedDB is asynchronous so most of the methods provide callbacks. To create/op
 
     .insert(value, overwrite, storeName, successHandler, errorHandler)
 
-**Argument:** `value`
+**Parameter:** `value`
 
 **Type:** `Object`
 
@@ -122,5 +122,3 @@ to `autoIncrement` [read more](https://developer.mozilla.org/en/docs/IndexedDB/U
 
 **Description:** A function to call when the request fails. The function get passed 1 parameter: the `Event`.
 
-
-a
