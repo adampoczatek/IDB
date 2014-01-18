@@ -51,7 +51,7 @@ IndexedDB is asynchronous so most of the methods provide callbacks. To create/op
 
     .getStoreInfo(storeName, successHandler, errorHandler)
 
-**Argument:** `storeName`
+**Parameter:** `storeName`
 
 **Type:** `String`
 
@@ -59,7 +59,7 @@ IndexedDB is asynchronous so most of the methods provide callbacks. To create/op
 
 ==
 
-**Argument:** `successHandler`
+**Parameter:** `successHandler`
 
 **Type:** `function(event, data) {}`
 
@@ -68,7 +68,7 @@ IndexedDB is asynchronous so most of the methods provide callbacks. To create/op
 
 ==
 
-**Argument:** `errorHandler`
+**Parameter:** `errorHandler`
 
 **Type:** `function(event) {}`
 
@@ -78,7 +78,7 @@ IndexedDB is asynchronous so most of the methods provide callbacks. To create/op
 
 ###.insert()
 
-**Description:** Get information on a specific store.
+**Description:** Insert data into a specific store.
 
     .insert(value, overwrite, storeName, successHandler, errorHandler)
 
@@ -90,7 +90,7 @@ IndexedDB is asynchronous so most of the methods provide callbacks. To create/op
 
 ==
 
-**Argument:** `overwrite`
+**Parameter:** `overwrite`
 
 **Type:** `Boolean`
 
@@ -99,7 +99,7 @@ to `autoIncrement` [read more](https://developer.mozilla.org/en/docs/IndexedDB/U
 
 ==
 
-**Argument:** `storeName`
+**Parameter:** `storeName`
 
 **Type:** `String`
 
@@ -107,7 +107,7 @@ to `autoIncrement` [read more](https://developer.mozilla.org/en/docs/IndexedDB/U
 
 ==
 
-**Argument:** `successHandler`
+**Parameter:** `successHandler`
 
 **Type:** `function(event, data) {}`
 
@@ -116,10 +116,11 @@ to `autoIncrement` [read more](https://developer.mozilla.org/en/docs/IndexedDB/U
 
 ==
 
-**Argument:** `errorHandler`
+**Parameter:** `errorHandler`
 
 **Type:** `function(event) {}`
 
 **Description:** A function to call when the request fails. The function get passed 1 parameter: the `Event`.
 
 
+a
