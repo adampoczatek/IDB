@@ -43,13 +43,13 @@ IndexedDB is asynchronous so most of the methods provide callbacks. To create/op
 
 ## API Reference
 
- - [.getStoreInfo()](#getstoreinfo-)
- - [.insert()](#insert-)
- - [.openStore()](#openstore-)
- - [.query()](#query-)
- - [.queryMultipleKeys()](#querymultiplekeys-)
- - [.remove()](#remove-)
- - [.update()](#update-)
+ - [.getStoreInfo()](#getstoreinfo)
+ - [.insert()](#insert)
+ - [.openStore()](#openstore)
+ - [.query()](#query)
+ - [.queryMultipleKeys()](#querymultiplekeys)
+ - [.remove()](#remove)
+ - [.update()](#update)
 
 ###.getStoreInfo() <a name="getstoreinfo"></a>
 
