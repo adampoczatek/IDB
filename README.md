@@ -51,17 +51,75 @@ IndexedDB is asynchronous so most of the methods provide callbacks. To create/op
 
     .getStoreInfo(storeName, successHandler, errorHandler)
 
-Argument: `storeName`
+**Argument:** `storeName`
 
-Type: `String`
+**Type:** `String`
 
-Name of the Store in the Database.
+**Description:** Name of a Store in the Database.
 
 ==
 
-Argument: `successHandler`
+**Argument:** `successHandler`
 
-Type: `function(event, data) {}`
+**Type:** `function(event, data) {}`
 
-A function to call when the request finishes. The function get passed 2 parameters: the `Event` and the `Data`.
+**Description:** A function to call when the request finishes. The function get passed 2 parameters: the `Event` and the
+ `Data`.
+
+==
+
+**Argument:** `errorHandler`
+
+**Type:** `function(event) {}`
+
+**Description:** A function to call when the request fails. The function get passed 1 parameter: the `Event`.
+
+==
+
+###.insert()
+
+**Description:** Get information on a specific store.
+
+    .insert(value, overwrite, storeName, successHandler, errorHandler)
+
+**Argument:** `value`
+
+**Type:** `Object`
+
+**Description:** A data object that will get inserted into the database.
+
+==
+
+**Argument:** `overwrite`
+
+**Type:** `Boolean`
+
+**Description:** If true, `value` will overwrite existing entry if already exists (only if the Store keyPath is not set
+to `autoIncrement` [read more](https://developer.mozilla.org/en/docs/IndexedDB/Using_IndexedDB#Structuring_the_database)).
+
+==
+
+**Argument:** `storeName`
+
+**Type:** `String`
+
+**Description:** Name of a Store in the Database.
+
+==
+
+**Argument:** `successHandler`
+
+**Type:** `function(event, data) {}`
+
+**Description:** A function to call when the request finishes. The function get passed 2 parameters: the `Event` and the
+ `Data`.
+
+==
+
+**Argument:** `errorHandler`
+
+**Type:** `function(event) {}`
+
+**Description:** A function to call when the request fails. The function get passed 1 parameter: the `Event`.
+
 
