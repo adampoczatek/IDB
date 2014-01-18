@@ -43,13 +43,13 @@ IndexedDB is asynchronous so most of the methods provide callbacks. To create/op
 
 ## API Reference
 
- - [.getStoreInfo()](#getstoreinfo)
- - [.insert()](#insert)
- - [.openStore()](#openstore)
- - [.query()](#query)
- - [.queryMultipleKeys()](#querymultiplekeys)
- - [.remove()](#remove)
- - [.update()](#update)
+ - [.getStoreInfo()](#getstoreinfo-)
+ - [.insert()](#insert-)
+ - [.openStore()](#openstore-)
+ - [.query()](#query-)
+ - [.queryMultipleKeys()](#querymultiplekeys-)
+ - [.remove()](#remove-)
+ - [.update()](#update-)
 
 ###.getStoreInfo() <a name="getstoreinfo"></a>
 
@@ -82,7 +82,7 @@ IndexedDB is asynchronous so most of the methods provide callbacks. To create/op
 
 ==
 
-###.insert() <a name="insert"></a>
+###.insert()
 
 **Description:** Insert data into a specific store.
 
@@ -130,7 +130,7 @@ to `autoIncrement` [read more](https://developer.mozilla.org/en/docs/IndexedDB/U
 
 ==
 
-###.openStore() <a name="openstore"></a>
+###.openStore()
 
 **Description:** Open store and return `IDBObjectStore`.
 
@@ -152,7 +152,7 @@ to `autoIncrement` [read more](https://developer.mozilla.org/en/docs/IndexedDB/U
 
 ==
 
-###.query() <a name="query"></a>
+###.query()
 
 **Description:** Query data from a specific store.
 
@@ -225,7 +225,7 @@ to `autoIncrement` [read more](https://developer.mozilla.org/en/docs/IndexedDB/U
 
 ==
 
-###.queryMultipleKeys() <a name="querymultiplekeys"></a>
+###.queryMultipleKeys()
 
 **Description:** Query data from a specific store using an array of keys.
 
@@ -272,7 +272,7 @@ to `autoIncrement` [read more](https://developer.mozilla.org/en/docs/IndexedDB/U
 
 ==
 
-###.remove() <a name="remove"></a>
+###.remove()
 
 **Description:** Insert data into a specific store.
 
@@ -311,7 +311,7 @@ to `autoIncrement` [read more](https://developer.mozilla.org/en/docs/IndexedDB/U
 
 ==
 
-###.update() <a name="update"></a>
+###.update()
 
 **Description:** Insert data into a specific store.
 
@@ -355,5 +355,3 @@ to `autoIncrement` [read more](https://developer.mozilla.org/en/docs/IndexedDB/U
 **Type:** `function(event) {}`
 
 **Description:** A function to call when the request fails. The function get passed 1 parameter: the `Event`.
-
-==
