@@ -45,11 +45,9 @@ IndexedDB is asynchronous so most of the methods provide callbacks. To create/op
 
 ## API Reference
 
-###.getStoreInfo()å
+###.getStoreInfo()
 
-**Description:**
-
-Get information on a specific store.
+**Description:** Get information on a specific store.
 
     .getStoreInfo(storeName, successHandler, errorHandler)
 
@@ -59,6 +57,11 @@ Type: `String`
 
 Name of the Store in the Database.
 
-`successHandler`
+==
+
+Argument: `successHandler`
+
 Type: `function(event, data) {}`
+
 A function to call when the request finishes. The function get passed 2 parameters: the `Event` and the `Data`.
+
