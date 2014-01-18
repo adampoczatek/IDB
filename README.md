@@ -2,7 +2,7 @@
 
 IDB is a simple wrapper for indexedDB API available in HTML5. The idea of this script is to help you organise your indexedDB connections and transactions, and to avoid code repetition.
 
-## Basic Usage
+## Example
 
 IndexedDB is asynchronous so most of the methods provide callbacks. To create/open your Database you need to call `new IDB` and provide 3 arguments: `setup` object, `successHandler` and `errorHandler` (optional). Here's an example:
 
@@ -40,8 +40,6 @@ IndexedDB is asynchronous so most of the methods provide callbacks. To create/op
         
         // Do more stuff...
     });
-    
-    // TODO: Documentation
 
 ## API Reference
 
@@ -122,3 +120,232 @@ to `autoIncrement` [read more](https://developer.mozilla.org/en/docs/IndexedDB/U
 
 **Description:** A function to call when the request fails. The function get passed 1 parameter: the `Event`.
 
+==
+
+###.openStore()
+
+**Description:** Open store and return `IDBObjectStore`.
+
+    .openStore(storeName, mode)
+
+**Parameter:** `storeName`
+
+**Type:** `String`
+
+**Description:** Name of a Store in the Database.
+
+==
+
+**Parameter:** `mode`
+
+**Type:** `String`
+
+**Description:** Transaction mode: `readwrite` (default) and `readonly` [read more](https://developer.mozilla.org/en-US/docs/Web/API/IDBDatabase.transaction#Parameters).
+
+==
+
+###.query()
+
+**Description:** Query data from a specific store.
+
+    .query(keyRange, index, storeName, pageIndex, itemsPerPage, direction, successHandler, errorHandler)
+
+**Parameter:** `keyRange`
+
+**Type:** `IDBKeyRange` [Read more](https://developer.mozilla.org/en-US/docs/Web/API/IDBKeyRange)
+
+**Description:** A range of keys in a specific store [read more](https://developer.mozilla.org/en-US/docs/Web/API/IDBKeyRange).
+ Set to `null` to query all keys.
+
+==
+
+**Parameter:** `index`
+
+**Type:** `String`
+
+**Description:** Query key range based on a specific index.
+
+==
+
+**Parameter:** `storeName`
+
+**Type:** `String`
+
+**Description:** Name of a Store in the Database.
+
+==
+
+**Parameter:** `pageIndex`
+
+**Type:** `Number`
+
+**Description:** Page index, works with `itemsPerPage` to help you setup a paging system.
+
+==
+
+**Parameter:** `itemsPerPage`
+
+**Type:** `Number`
+
+**Description:** Limit query to a specific number of items. If `itemsPerPage` is not set, query will return all records.
+
+==
+
+**Parameter:** `direction`
+
+**Type:** `String`
+
+**Description:** Cursor direction: `next` (default), `nextunique`, `prev` and `prevunique`
+ [read more](https://developer.mozilla.org/en-US/docs/Web/API/IDBCursor.direction).
+
+==
+
+**Parameter:** `successHandler`
+
+**Type:** `function(event, data) {}`
+
+**Description:** A function to call when the request finishes. The function get passed 2 parameters: the `Event` and the
+ `Data`.
+
+==
+
+**Parameter:** `errorHandler`
+
+**Type:** `function(event) {}`
+
+**Description:** A function to call when the request fails. The function get passed 1 parameter: the `Event`.
+
+==
+
+###.queryMultipleKeys()
+
+**Description:** Query data from a specific store using an array of keys.
+
+    .queryMultipleKeys(keys, index, storeName, successHandler, errorHandler)
+
+**Parameter:** `keys`
+
+**Type:** `Array`
+
+**Description:** An array of keys to query from a store.
+
+==
+
+**Parameter:** `index`
+
+**Type:** `String`
+
+**Description:** Query key range based on a specific index.
+
+==
+
+**Parameter:** `storeName`
+
+**Type:** `String`
+
+**Description:** Name of a Store in the Database.
+
+==
+
+**Parameter:** `successHandler`
+
+**Type:** `function(event, data) {}`
+
+**Description:** A function to call when the request finishes. The function get passed 2 parameters: the `Event` and the
+ `Data`.
+
+==
+
+**Parameter:** `errorHandler`
+
+**Type:** `function(event) {}`
+
+**Description:** A function to call when the request fails. The function get passed 1 parameter: the `Event`.
+
+==
+
+###.remove()
+
+**Description:** Insert data into a specific store.
+
+    .remove(key, storeName, successHandler, errorHandler)
+
+**Parameter:** `key`
+
+**Type:** `String|Number`
+
+**Description:** Key of an item in the store.
+
+==
+
+**Parameter:** `storeName`
+
+**Type:** `String`
+
+**Description:** Name of a Store in the Database.
+
+==
+
+**Parameter:** `successHandler`
+
+**Type:** `function(event, data) {}`
+
+**Description:** A function to call when the request finishes. The function get passed 2 parameters: the `Event` and the
+ `Data`.
+
+==
+
+**Parameter:** `errorHandler`
+
+**Type:** `function(event) {}`
+
+**Description:** A function to call when the request fails. The function get passed 1 parameter: the `Event`.
+
+==
+
+###.update()
+
+**Description:** Insert data into a specific store.
+
+    .update(value, key, storeName, successHandler, errorHandler)
+
+**Parameter:** `value`
+
+**Type:** `Object`
+
+**Description:** A data object that will get inserted into the database.
+
+==
+
+**Parameter:** `key`
+
+**Type:** `String|Number`
+
+**Description:** Key of an item in the store.
+
+==
+
+**Parameter:** `storeName`
+
+**Type:** `String`
+
+**Description:** Name of a Store in the Database.
+
+==
+
+**Parameter:** `successHandler`
+
+**Type:** `function(event, data) {}`
+
+**Description:** A function to call when the request finishes. The function get passed 2 parameters: the `Event` and the
+ `Data`.
+
+==
+
+**Parameter:** `errorHandler`
+
+**Type:** `function(event) {}`
+
+**Description:** A function to call when the request fails. The function get passed 1 parameter: the `Event`.
+
+==
