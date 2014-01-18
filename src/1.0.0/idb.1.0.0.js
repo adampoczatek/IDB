@@ -343,11 +343,12 @@
         };
 
         request.onsuccess = function (e) {
-            var cursor = e.target.result;
+            var cursor = e.target.result,
+                item;
 
             if (cursor) {
-                for (var item in cursor.value) {
-                    if (cursor.value.hasOwnProperty(item) && value[item]) {
+                for (item in cursor.value) {
+                    if (cursor.value.hasOwnProperty(item) && value.hasOwnProperty(item)) {
                         cursor.value[item] = value[item];
                     }
                 }
