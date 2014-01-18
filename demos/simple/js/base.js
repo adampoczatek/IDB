@@ -121,5 +121,4 @@ window.todo = {};
         }
     };
 
-
 })(window.todo);
