@@ -51,7 +51,9 @@ IndexedDB is asynchronous so most of the methods provide callbacks. To create/op
  - [.remove()](#remove)
  - [.update()](#update)
 
-###.getStoreInfo() <a name="getstoreinfo"></a>
+###.getStoreInfo()
+
+[Back to top][#api-reference]
 
 **Description:** Get information on a specific store.
 
@@ -83,6 +85,8 @@ IndexedDB is asynchronous so most of the methods provide callbacks. To create/op
 ==
 
 ###.insert()
+
+[Back to top][#api-reference]
 
 **Description:** Insert data into a specific store.
 
@@ -132,6 +136,8 @@ to `autoIncrement` [read more](https://developer.mozilla.org/en/docs/IndexedDB/U
 
 ###.openStore()
 
+[Back to top][#api-reference]
+
 **Description:** Open store and return `IDBObjectStore`.
 
     .openStore(storeName, mode)
@@ -153,6 +159,8 @@ to `autoIncrement` [read more](https://developer.mozilla.org/en/docs/IndexedDB/U
 ==
 
 ###.query()
+
+[Back to top][#api-reference]
 
 **Description:** Query data from a specific store.
 
@@ -227,6 +235,8 @@ to `autoIncrement` [read more](https://developer.mozilla.org/en/docs/IndexedDB/U
 
 ###.queryMultipleKeys()
 
+[Back to top][#api-reference]
+
 **Description:** Query data from a specific store using an array of keys.
 
     .queryMultipleKeys(keys, index, storeName, successHandler, errorHandler)
@@ -274,6 +284,8 @@ to `autoIncrement` [read more](https://developer.mozilla.org/en/docs/IndexedDB/U
 
 ###.remove()
 
+[Back to top][#api-reference]
+
 **Description:** Insert data into a specific store.
 
     .remove(key, storeName, successHandler, errorHandler)
@@ -312,6 +324,8 @@ to `autoIncrement` [read more](https://developer.mozilla.org/en/docs/IndexedDB/U
 ==
 
 ###.update()
+
+[Back to top][#api-reference]
 
 **Description:** Insert data into a specific store.
 
