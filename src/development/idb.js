@@ -41,8 +41,6 @@
         var instance = this,
             request;
 
-        this.config = {};
-
         this.setup = setup;
 
         if (!this.setup.db ||
@@ -127,32 +125,29 @@
         var instance = this,
             iterations = 0,
             objectStoreNames = this.db.objectStoreNames,
-            objectStoreName = objectStoreNames[iterations],
             result = {},
-            queryData, i, l;
+            objectStoreName, queryData, i, l;
 
-        queryData = function(storeName) {
-            instance.query(null, null, storeName, 0, 0, "next", function (e, data) {
-                objectStoreName = objectStoreNames[iterations];
+        queryData = function() {
+            objectStoreName = objectStoreNames[iterations];
 
-                result[storeName] = data;
+            if (objectStoreName) {
+                instance.query(null, null, objectStoreName, 0, 0, "next", function (e, data) {
+                    result[objectStoreName] = data;
 
-                iterations++;
+                    iterations++;
 
-                if (objectStoreName) {
-                    queryData(objectStoreName);
+                    queryData();
+                });
+            }
+            else {
+                if (typeof successHandler === "function") {
+                    successHandler.call(instance, result);
                 }
-                else {
-                    if (typeof successHandler === "function") {
-                        successHandler.call(instance, result);
-                    }
-                }
-            });
+            }
         };
 
-        if (objectStoreName) {
-            queryData(objectStoreName);
-        }
+        queryData();
     };
 
     /**
@@ -182,14 +177,42 @@
         };
     };
 
-    window.IDB.prototype.importData = function (data, callback) {
-        var key;
+    /**
+     * @param {Object} importData An object with data that will go into the database.
+     * @param {function(Object)=} successHandler Function called on success.
+     * @param {function(Object)=} errorHandler Function called on error.
+     */
 
-        for (key in data) {
-            if (data.hasOwnProperty(key) && this.objectStoreNames[key]) {
-                this.insert();
+    window.IDB.prototype.importData = function (importData, successHandler, errorHandler) {
+        var instance = this,
+            iterations = 0,
+            storeNames = Object.keys(importData),
+            data, insertData, storeName;
+
+        insertData = function () {
+            storeName = storeNames[iterations];
+
+            data = importData[storeName];
+
+            if (storeName && data) {
+                instance.insert(data, true, storeName, function() {
+                    iterations++;
+
+                    insertData();
+                }, function(e) {
+                    if (typeof errorHandler === "function") {
+                        errorHandler.call(instance, e);
+                    }
+                });
             }
-        }
+            else {
+                if (typeof successHandler === "function") {
+                    successHandler.call(instance, importData);
+                }
+            }
+        };
+
+        insertData();
     };
 
     /**
@@ -482,10 +505,7 @@
      */
 
     formatResult = function (result) {
-        return result ? {
-            value: result.value,
-            key: result.key
-        } : undefined;
+        return result ? result.value : undefined;
     };
 
     /**
