@@ -38,7 +38,7 @@
      * @constructor
      */
 
-    window.IDB = function(setup, onDbReady, errorCallback) {
+    window.IDB = function(setup, onDbReady, errorHandler) {
         var instance = this,
             request;
 
@@ -51,8 +51,8 @@
             !this.setup.stores ||
             !this.setup.stores.length) {
 
-            if (typeof errorCallback === "function") {
-                errorCallback.call(this, { errorMessage: "Database Name and/or Store is not defined." });
+            if (typeof errorHandler === "function") {
+                errorHandler.call(this, { errorMessage: "Database Name and/or Store is not defined." });
             }
 
             return;
@@ -61,8 +61,8 @@
         request = window.indexedDB.open(this.setup.db, this.setup.version);
 
         request.onerror = function (e) {
-            if (typeof errorCallback === "function") {
-                errorCallback.call(instance, e);
+            if (typeof errorHandler === "function") {
+                errorHandler.call(instance, e);
             }
         };
 
@@ -113,11 +113,47 @@
             }
 
             e.target.transaction.onerror = function (e) {
-                if (typeof errorCallback === "function") {
-                    errorCallback.call(instance, e);
+                if (typeof errorHandler === "function") {
+                    errorHandler.call(instance, e);
                 }
             };
         };
+    };
+
+    /**
+     * @param {function(data)} successHandler Function called when the export is ready.
+     */
+
+    window.IDB.prototype.exportData = function (successHandler) {
+        var instance = this,
+            iterations = 0,
+            objectStoreNames = this.db.objectStoreNames,
+            objectStoreName = objectStoreNames[iterations],
+            result = {},
+            queryData, i, l;
+
+        queryData = function(storeName) {
+            instance.query(null, null, storeName, 0, 0, "next", function (e, data) {
+                objectStoreName = objectStoreNames[iterations];
+
+                result[storeName] = data;
+
+                iterations++;
+
+                if (objectStoreName) {
+                    queryData(objectStoreName);
+                }
+                else {
+                    if (typeof successHandler === "function") {
+                        successHandler.call(instance, result);
+                    }
+                }
+            });
+        };
+
+        if (objectStoreName) {
+            queryData(objectStoreName);
+        }
     };
 
     /**
@@ -147,6 +183,16 @@
         };
     };
 
+    window.IDB.prototype.importData = function (data, callback) {
+        var key;
+
+        for (key in data) {
+            if (data.hasOwnProperty(key) && this.objectStoreNames[key]) {
+                this.insert();
+            }
+        }
+    };
+
     /**
      * @param {Object} value Data that will go into the database.
      * @param {Boolean} overwrite Boolean indicating whether to overwrite exising items or not.
@@ -156,10 +202,43 @@
      */
 
     window.IDB.prototype.insert = function (value, overwrite, storeName, successHandler, errorHandler) {
-        var objectStore = this.openStore(storeName, "readwrite"),
-            request = objectStore[(overwrite ? "put" : "add")](value);
+        var instance = this,
+            objectStore = this.openStore(storeName, "readwrite"),
+            method = overwrite ? "put" : "add",
+            iterations = 0,
+            request, insertData;
 
-        processRequest(request, successHandler, errorHandler);
+        if (value.length) {
+            insertData = function () {
+                request = objectStore[method](value[iterations]);
+
+                request.onerror = function (e) {
+                    if (typeof errorHandler === "function") {
+                        errorHandler.call(instance, e);
+                    }
+                };
+
+                request.onsuccess = function (e) {
+                    iterations++;
+
+                    if (value[iterations]) {
+                        insertData();
+                    }
+                    else {
+                        if (typeof successHandler === "function") {
+                            successHandler.call(instance, e);
+                        }
+                    }
+                };
+            };
+
+            insertData();
+        }
+        else {
+            request = objectStore[method](value);
+
+            processRequest(request, successHandler, errorHandler);
+        }
     };
 
     /**
