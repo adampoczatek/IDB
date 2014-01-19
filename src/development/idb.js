@@ -2,7 +2,7 @@
  * @author Adam Poczatek <hello.adaz@gmail.com>
  * @version 1.0.1
  *
- * Last update: Fri, 17 January 2014
+ * Last update: Sun, 19 January 2014
  */
 
 (function(window) {
