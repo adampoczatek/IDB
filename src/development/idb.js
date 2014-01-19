@@ -12,7 +12,6 @@
 
     /**
      * TODO: Make sure it works on all browsers that support indexedDB
-     * TODO: Import/Export
      */
 
     /**
@@ -395,10 +394,42 @@
      */
 
     window.IDB.prototype.remove = function (key, storeName, successHandler, errorHandler) {
-        var objectStore = this.openStore(storeName, "readwrite"),
+        var instance = this,
+            objectStore = this.openStore(storeName, "readwrite"),
+            iterations = 0,
+            request, removeData;
+
+        if (key.length) {
+            removeData = function () {
+                request = objectStore["delete"](key[iterations]);
+
+                request.onerror = function (e) {
+                    if (typeof errorHandler === "function") {
+                        errorHandler.call(instance, e);
+                    }
+                };
+
+                request.onsuccess = function (e) {
+                    iterations++;
+
+                    if (key[iterations]) {
+                        removeData();
+                    }
+                    else {
+                        if (typeof successHandler === "function") {
+                            successHandler.call(instance, e);
+                        }
+                    }
+                };
+            };
+
+            removeData();
+        }
+        else {
             request = objectStore["delete"](key);
 
-        processRequest(request, successHandler, errorHandler);
+            processRequest(request, successHandler, errorHandler);
+        }
     };
 
     /**
