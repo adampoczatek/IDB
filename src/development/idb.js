@@ -1,6 +1,6 @@
 /**
  * @author Adam Poczatek <hello.adaz@gmail.com>
- * @version 1.0.0
+ * @version 1.0.1
  *
  * Last update: Fri, 17 January 2014
  */
@@ -216,7 +216,7 @@
     };
 
     /**
-     * @param {Object} value Data that will go into the database.
+     * @param {(Object|Array)} value Data that will go into the database.
      * @param {Boolean} overwrite Boolean indicating whether to overwrite exising items or not.
      * @param {String} storeName String representing database store.
      * @param {function(Object)=} successHandler Function called on success.
@@ -367,14 +367,14 @@
         var instance = this,
             count = 0,
             result = [],
-            limit, getNext;
+            limit, getNextItem;
 
         if (keys.length) {
             limit = keys && typeof keys === "object" && keys.length;
 
             result = [];
 
-            getNext = function(e) {
+            getNextItem = function(e) {
                 var i, l;
 
                 if (count < limit) {
@@ -390,7 +390,7 @@
 
                         count++;
 
-                        getNext(e);
+                        getNextItem(e);
                     });
                 }
                 else {
@@ -400,7 +400,7 @@
                 }
             };
 
-            getNext();
+            getNextItem();
         }
         else {
             if (typeof errorHandler === "function") {
@@ -410,7 +410,7 @@
     };
 
     /**
-     * @param {(number|string)} key Key of an item in the database.
+     * @param {(Number|String|Array)} key Key (or an array of keys) of an item in the database.
      * @param {String} storeName String representing database store.
      * @param {function(Object)=} successHandler Function called on success.
      * @param {function(Object)=} errorHandler Function called on error.
@@ -476,10 +476,11 @@
         };
 
         request.onsuccess = function (e) {
-            var cursor = e.target.result;
+            var cursor = e.target.result,
+                item;
 
             if (cursor) {
-                for (var item in cursor.value) {
+                for (item in cursor.value) {
                     if (cursor.value.hasOwnProperty(item) && value[item]) {
                         cursor.value[item] = value[item];
                     }
