@@ -10,9 +10,13 @@
 
     var formatResult, processRequest;
 
-    /**
-     * TODO: Make sure it works on all browsers that support indexedDB
-     */
+    // Adding support for vendor prefixed API
+
+    window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+
+    window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
+
+    window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
 
     /**
      * @param {Object} setup Object containing information about Database and Stores.
