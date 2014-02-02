@@ -1,8 +1,6 @@
 /**
  * @author Adam Poczatek <hello.adaz@gmail.com>
- * @version 1.0.1
- *
- * Last update: Sun, 19 January 2014
+ * @version 1.0.2
  */
 
 (function(window) {
