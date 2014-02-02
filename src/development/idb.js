@@ -382,11 +382,11 @@
                 var i, l;
 
                 if (count < limit) {
-                    instance.query(window.IDBKeyRange.only(keys[count]), index || null, storeName, 0, 0, function(e, data) {
+                    instance.query(window.IDBKeyRange.only(keys[count]), index || null, storeName, 0, 0, "next", function(e, data) {
                         if (data.length) {
                             for (i = 0, l = data.length; i < l; i++) {
                                 result.push(formatResult({
-                                    value: data[i].value,
+                                    value: data[i],
                                     key: keys[count]
                                 }));
                             }
