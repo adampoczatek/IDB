@@ -45,13 +45,39 @@ IndexedDB is asynchronous so most of the methods provide callbacks. To create/op
 
 ## API Reference
 
+ - [.exportData()](#exportdata)
  - [.getStoreInfo()](#getstoreinfo)
+ - [.importData()](#importdata)
  - [.insert()](#insert)
  - [.openStore()](#openstore)
  - [.query()](#query)
  - [.queryMultipleKeys()](#querymultiplekeys)
  - [.remove()](#remove)
  - [.update()](#update)
+
+###.exportData()
+[Back to top](#api-reference)
+
+**Description:** Export data.
+
+    .exportData(successHandler)
+
+**Parameter:** `successHandler`
+
+**Type:** `function(data)`
+
+**Description:** A function to call when the request finishes. The function gets passed 1 parameter: `data`.
+
+==
+
+**Parameter:** `successHandler`
+
+**Type:** `function(event, data) {}`
+
+**Description:** A function to call when the request finishes. The function gets passed 2 parameters: the `Event` and the
+ `Data`.
+
+==
 
 ###.getStoreInfo()
 [Back to top](#api-reference)
@@ -72,7 +98,7 @@ IndexedDB is asynchronous so most of the methods provide callbacks. To create/op
 
 **Type:** `function(event, data) {}`
 
-**Description:** A function to call when the request finishes. The function get passed 2 parameters: the `Event` and the
+**Description:** A function to call when the request finishes. The function gets passed 2 parameters: the `Event` and the
  `Data`.
 
 ==
@@ -81,7 +107,38 @@ IndexedDB is asynchronous so most of the methods provide callbacks. To create/op
 
 **Type:** `function(event) {}`
 
-**Description:** A function to call when the request fails. The function get passed 1 parameter: the `Event`.
+**Description:** A function to call when the request fails. The function gets passed 1 parameter: the `Event`.
+
+==
+
+###.importData()
+[Back to top](#api-reference)
+
+**Description:** Import data.
+
+    .importData(importData, successHandler, errorHandler)
+
+**Parameter:** `importData`
+
+**Type:** `Object`
+
+**Description:** A data object that will get inserted into the database.
+
+==
+
+**Parameter:** `successHandler`
+
+**Type:** `function(data)`
+
+**Description:** A function to call when the request finishes. The function gets passed 1 parameter: the `Event`.
+
+==
+
+**Parameter:** `errorHandler`
+
+**Type:** `function(event) {}`
+
+**Description:** A function to call when the request fails. The function gets passed 1 parameter: the `Event`.
 
 ==
 
@@ -95,9 +152,9 @@ IndexedDB is asynchronous so most of the methods provide callbacks. To create/op
 
 **Parameter:** `value`
 
-**Type:** `Object`
+**Type:** `Object` / `Array`
 
-**Description:** A data object that will get inserted into the database.
+**Description:** A data object (or an array of objects) that will get inserted into the database.
 
 ==
 
@@ -122,7 +179,7 @@ to `autoIncrement` [read more](https://developer.mozilla.org/en/docs/IndexedDB/U
 
 **Type:** `function(event, data) {}`
 
-**Description:** A function to call when the request finishes. The function get passed 2 parameters: the `Event` and the
+**Description:** A function to call when the request finishes. The function gets passed 2 parameters: the `Event` and the
  `Data`.
 
 ==
@@ -131,7 +188,7 @@ to `autoIncrement` [read more](https://developer.mozilla.org/en/docs/IndexedDB/U
 
 **Type:** `function(event) {}`
 
-**Description:** A function to call when the request fails. The function get passed 1 parameter: the `Event`.
+**Description:** A function to call when the request fails. The function gets passed 1 parameter: the `Event`.
 
 ==
 
@@ -221,7 +278,7 @@ to `autoIncrement` [read more](https://developer.mozilla.org/en/docs/IndexedDB/U
 
 **Type:** `function(event, data) {}`
 
-**Description:** A function to call when the request finishes. The function get passed 2 parameters: the `Event` and the
+**Description:** A function to call when the request finishes. The function gets passed 2 parameters: the `Event` and the
  `Data`.
 
 ==
@@ -230,7 +287,7 @@ to `autoIncrement` [read more](https://developer.mozilla.org/en/docs/IndexedDB/U
 
 **Type:** `function(event) {}`
 
-**Description:** A function to call when the request fails. The function get passed 1 parameter: the `Event`.
+**Description:** A function to call when the request fails. The function gets passed 1 parameter: the `Event`.
 
 ==
 
@@ -270,7 +327,7 @@ to `autoIncrement` [read more](https://developer.mozilla.org/en/docs/IndexedDB/U
 
 **Type:** `function(event, data) {}`
 
-**Description:** A function to call when the request finishes. The function get passed 2 parameters: the `Event` and the
+**Description:** A function to call when the request finishes. The function gets passed 2 parameters: the `Event` and the
  `Data`.
 
 ==
@@ -279,7 +336,7 @@ to `autoIncrement` [read more](https://developer.mozilla.org/en/docs/IndexedDB/U
 
 **Type:** `function(event) {}`
 
-**Description:** A function to call when the request fails. The function get passed 1 parameter: the `Event`.
+**Description:** A function to call when the request fails. The function gets passed 1 parameter: the `Event`.
 
 ==
 
@@ -311,7 +368,7 @@ to `autoIncrement` [read more](https://developer.mozilla.org/en/docs/IndexedDB/U
 
 **Type:** `function(event, data) {}`
 
-**Description:** A function to call when the request finishes. The function get passed 2 parameters: the `Event` and the
+**Description:** A function to call when the request finishes. The function gets passed 2 parameters: the `Event` and the
  `Data`.
 
 ==
@@ -320,7 +377,7 @@ to `autoIncrement` [read more](https://developer.mozilla.org/en/docs/IndexedDB/U
 
 **Type:** `function(event) {}`
 
-**Description:** A function to call when the request fails. The function get passed 1 parameter: the `Event`.
+**Description:** A function to call when the request fails. The function gets passed 1 parameter: the `Event`.
 
 ==
 
@@ -360,7 +417,7 @@ to `autoIncrement` [read more](https://developer.mozilla.org/en/docs/IndexedDB/U
 
 **Type:** `function(event, data) {}`
 
-**Description:** A function to call when the request finishes. The function get passed 2 parameters: the `Event` and the
+**Description:** A function to call when the request finishes. The function gets passed 2 parameters: the `Event` and the
  `Data`.
 
 ==
@@ -369,4 +426,4 @@ to `autoIncrement` [read more](https://developer.mozilla.org/en/docs/IndexedDB/U
 
 **Type:** `function(event) {}`
 
-**Description:** A function to call when the request fails. The function get passed 1 parameter: the `Event`.
+**Description:** A function to call when the request fails. The function gets passed 1 parameter: the `Event`.

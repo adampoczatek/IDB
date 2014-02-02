@@ -34,7 +34,7 @@
      * }
      *
      * @param {function(Object)=} onDbReady Function called when the Database has successfully opened.
-     * @param {function(Object)=} errorHandler Function called when the Database has failed to open.
+     * @param {function(Object)=} errorCallback Function called when the Database has failed to open.
      * @constructor
      */
 
