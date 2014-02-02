@@ -123,9 +123,10 @@
 
     /**
      * @param {function(data)} successHandler Function called when the export is ready.
+     * @param {function(Object)=} errorHandler Function called on error.
      */
 
-    window.IDB.prototype.exportData = function (successHandler) {
+    window.IDB.prototype.exportData = function (successHandler, errorHandler) {
         var instance = this,
             iterations = 0,
             objectStoreNames = this.db.objectStoreNames,
@@ -142,6 +143,8 @@
                     iterations++;
 
                     queryData();
+                }, function(e) {
+                    errorHandler.call(instance, e);
                 });
             }
             else {
