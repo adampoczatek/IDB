@@ -2,7 +2,7 @@
 
 IDB.js is a simple wrapper for indexedDB API available in HTML5. The idea of this script is to help you organise your indexedDB connections and transactions, and to avoid code repetition.
 
-[Simple TODO Demo](http://adaz.github.io/IDB/demos/simple/)
+[Simple TODO Demo](http://adampoczatek.github.io/IDB/demos/simple/)
 
 ## Example
 
